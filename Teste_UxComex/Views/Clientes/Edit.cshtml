@@ -1,0 +1,95 @@
+﻿@model Teste_UxComex.Models.ViewModel.ClienteEnderecoViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Cliente</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Cliente.Id" />
+            <div class="form-group">
+                <label asp-for="Cliente.Nome" class="control-label"></label>
+                <input asp-for="Cliente.Nome" class="form-control" />
+                <span asp-validation-for="Cliente.Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cliente.Cpf" class="control-label"></label>
+                <input asp-for="Cliente.Cpf" class="form-control" />
+                <span asp-validation-for="Cliente.Cpf" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cliente.Telefone" class="control-label"></label>
+                <input asp-for="Cliente.Telefone" class="form-control" />
+                <span asp-validation-for="Cliente.Telefone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Endereco.FirstOrDefault().Logadouro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Endereco.FirstOrDefault().Numero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Endereco.FirstOrDefault().Cep)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Endereco.FirstOrDefault().Cidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Endereco.FirstOrDefault().Estado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Endereco)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Logadouro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Numero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cep)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-controller="Enderecoes" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<p>
+    <a asp-controller="Enderecoes" asp-action="Create">Create New</a>
+</p>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
