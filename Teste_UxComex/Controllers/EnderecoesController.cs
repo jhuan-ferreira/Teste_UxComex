@@ -78,13 +78,17 @@ namespace Teste_UxComex.Controllers
             {
                 return NotFound();
             }
-            return View(endereco);
+
+            var clientes = _context.Clientes.ToList();
+            EnderecoClientesViewModel enderecoClientesViewModel = new EnderecoClientesViewModel { Cliente = clientes, Endereco = endereco };
+
+            return View(enderecoClientesViewModel);
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Logadouro,Numero,Cep,Cidade,Estado")] Endereco endereco)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Logadouro,Numero,Cep,Cidade,Estado,ClienteId")] Endereco endereco)
         {
             if (id != endereco.Id)
             {
